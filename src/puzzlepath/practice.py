@@ -15,6 +15,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.backends.backend_pdf import PdfPages
 from matplotlib.patches import Rectangle
+from threadpoolctl import threadpool_limits
 
 from puzzlepath.data import Puzzle
 from puzzlepath.features import vectorize
@@ -49,13 +50,16 @@ def choose_puzzles(
     if rank_by not in {"observed", "predicted"}:
         raise ValueError("rank_by must be observed or predicted")
     pool = [p for p in puzzles if theme is None or theme in p.themes]
+    if not pool:
+        raise ValueError("not enough distinct matching puzzles; check --theme")
     if rank_by == "predicted":
         if model is None:
             raise ValueError("prediction-based selection requires a trained model")
         features, names = vectorize([p.board() for p in pool])
         if names != model["feature_names"]:
             raise ValueError("model feature schema mismatch")
-        scores = model["estimator"].predict(features[:, model["columns"]])
+        with threadpool_limits(limits=2):
+            scores = model["estimator"].predict(features[:, model["columns"]])
     else:
         scores = np.asarray([p.rating for p in pool], dtype=float)
     available = [

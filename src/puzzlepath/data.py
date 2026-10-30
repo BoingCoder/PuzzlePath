@@ -5,6 +5,7 @@ from __future__ import annotations
 import csv
 import hashlib
 import io
+import itertools
 import json
 import random
 import re
@@ -113,16 +114,17 @@ def fetch_sample(
     seed: int = 42,
     min_plays: int = 1000,
     max_deviation: int = 100,
+    skip: int = 0,
 ) -> dict:
-    """Reservoir-sample eligible rows from a bounded prefix of the remote export.
+    """Reservoir-sample eligible rows from a bounded window of the remote export.
 
     This deliberately does not claim a uniform sample of the full database.
     The exact retained bytes, HTTP identity, and sampling boundary are recorded.
     """
     if output.exists() or output.with_suffix(".manifest.json").exists():
         raise ValueError(f"refusing to replace an existing snapshot: {output}")
-    if limit < 1 or scan < limit or min_plays < 0 or max_deviation < 1:
-        raise ValueError("require scan >= limit > 0, min_plays >= 0, max_deviation > 0")
+    if limit < 1 or scan < limit or min_plays < 0 or max_deviation < 1 or skip < 0:
+        raise ValueError("require scan >= limit > 0, min_plays >= 0, max_deviation > 0, skip >= 0")
     rng = random.Random(seed)
     selected: list[dict[str, str]] = []
     counts: Counter = Counter()
@@ -135,7 +137,7 @@ def fetch_sample(
             fields = reader.fieldnames
             if not REQUIRED_COLUMNS.issubset(fields or []):
                 raise ValueError("upstream CSV schema changed")
-            for row in reader:
+            for row in itertools.islice(reader, skip, None):
                 counts["scanned"] += 1
                 try:
                     if int(row.get("NbPlays") or 0) < min_plays:
@@ -179,10 +181,11 @@ def fetch_sample(
         "retrieved_utc": datetime.now(UTC).isoformat(),
         "http_identity": identity,
         "sampling": (
-            "seeded reservoir over eligible rows in the scanned prefix; NOT full-export random"
+            "seeded reservoir over eligible rows in the scanned window; NOT full-export random"
         ),
         "seed": seed,
         "scan_limit": scan,
+        "skip_rows": skip,
         "sample_size": len(selected),
         "min_plays": min_plays,
         "max_rating_deviation": max_deviation,

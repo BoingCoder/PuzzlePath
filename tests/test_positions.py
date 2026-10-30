@@ -54,3 +54,14 @@ def test_illegal_setup_move_is_rejected(puzzle_row):
 def test_non_lichess_game_identity_is_rejected(puzzle_row):
     with pytest.raises(ValueError, match="game identity"):
         parse_row({**puzzle_row, "GameUrl": "https://example.com/yyznGmXs"})
+
+
+def test_immediate_mate_is_detected_without_solution_metadata():
+    board = chess.Board()
+    for move in ("e4", "e5", "Qh5", "Nc6", "Bc4", "Nf6"):
+        board.push_san(move)
+    before = board.fen()
+    features = position_features(board)
+    assert features["mate_in_one_moves"] == 1
+    assert features["minimum_check_replies"] == 0
+    assert board.fen() == before

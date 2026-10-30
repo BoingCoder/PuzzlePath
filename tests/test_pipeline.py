@@ -9,6 +9,7 @@ import pytest
 
 from puzzlepath.cli import audit_run, main
 from puzzlepath.data import load_puzzles
+from puzzlepath.evaluation import evaluate_external
 from puzzlepath.features import vectorize
 from puzzlepath.model import load_model, predict_position, train
 from puzzlepath.practice import choose_puzzles, export_practice
@@ -94,3 +95,36 @@ def test_invalid_fen_has_a_clean_cli_error(capsys):
 def test_insufficient_practice_pool_is_an_error(small_data):
     with pytest.raises(ValueError, match="not enough distinct"):
         choose_puzzles(load_puzzles(small_data), target=1, window=0)
+
+
+def test_external_evaluation_excludes_positions_seen_during_development(
+    small_data, fitted, tmp_path
+):
+    with DATA.open(newline="") as handle:
+        reader = csv.DictReader(handle)
+        fields = reader.fieldnames
+        rows = [next(reader) for _ in range(460)]
+    # A different identity and game still must not sneak an identical board across the boundary.
+    overlap = {**rows[0], "PuzzleId": "fixtureOverlap", "GameUrl": "https://lichess.org/zzzzzzzz"}
+    external = tmp_path / "external.csv"
+    with external.open("w", newline="") as handle:
+        writer = csv.DictWriter(handle, fieldnames=fields)
+        writer.writeheader()
+        writer.writerows([*rows[400:], overlap])
+    model_before = (fitted[0] / "model.joblib").read_bytes()
+    summary = evaluate_external(external, small_data, fitted[0], tmp_path / "evaluation")
+    assert summary["excluded_overlapping_rows"] >= 1
+    assert summary["retained_rows"] <= 60
+    assert (fitted[0] / "model.joblib").read_bytes() == model_before
+
+
+def test_a_development_sample_is_not_an_external_holdout(small_data, fitted, tmp_path):
+    with pytest.raises(ValueError, match="no new puzzle identities"):
+        evaluate_external(small_data, small_data, fitted[0], tmp_path / "evaluation")
+
+
+def test_unknown_theme_has_a_clear_error_in_prediction_mode(small_data):
+    with pytest.raises(ValueError, match="check --theme"):
+        choose_puzzles(
+            load_puzzles(small_data), target=1400, theme="not-a-theme", rank_by="predicted"
+        )

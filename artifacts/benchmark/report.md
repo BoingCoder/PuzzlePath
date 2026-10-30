@@ -1,20 +1,20 @@
 # Benchmark report
 
-Run timestamp (UTC): 2026-10-30T02:59:24.287810+00:00
+Run timestamp (UTC): 2026-10-30T03:02:29.360571+00:00
 
-20,000 public puzzles; 45 position-only features.
+20,000 public puzzles; 50 position-only features.
 Selected **boosted_15** using validation MAE, before test evaluation.
 
 | Model | Validation MAE | Test MAE | Test RMSE | Test R² | Within 200 |
 | --- | ---: | ---: | ---: | ---: | ---: |
 | median | 324.1 | 320.5 | 397.7 | -0.005 | 36.9% |
 | material_ridge | 323.5 | 319.5 | 393.9 | 0.013 | 36.5% |
-| position_ridge | 317.5 | 313.2 | 386.5 | 0.050 | 36.7% |
-| boosted_15 | 311.5 | 308.2 | 383.3 | 0.066 | 38.1% |
-| boosted_31 | 313.3 | 308.9 | 384.2 | 0.061 | 38.5% |
+| position_ridge | 311.6 | 306.4 | 377.0 | 0.097 | 37.2% |
+| boosted_15 | 303.5 | 299.3 | 372.7 | 0.117 | 40.6% |
+| boosted_31 | 303.9 | 299.7 | 372.9 | 0.116 | 40.4% |
 
-Selected-model test MAE: **308.2** rating points.
-95% component-bootstrap interval for MAE: **299.9–316.6**.
+Selected-model test MAE: **299.3** rating points.
+95% component-bootstrap interval for MAE: **291.5–307.7**.
 
 ![Benchmark](benchmark.png)
 
@@ -35,10 +35,10 @@ reservoir over an eligible export prefix; see `data/puzzles.manifest.json`.
 
 Nominal component coverage: 90%. Calibration uses
 1,992 component maximum absolute residuals.
-The resulting radius is **±623** rating points.
+The resulting radius is **±614** rating points.
 
-Observed test row coverage: **89.6%**;
-test component coverage: **89.6%**.
+Observed test row coverage: **90.1%**;
+test component coverage: **90.1%**.
 
 This is marginal coverage under exchangeability assumptions, not a guarantee
 for an individual position, a rating band, a different website, or a student.
@@ -48,11 +48,11 @@ Wide intervals are an important result: board features leave much unexplained.
 
 | Rating band | Puzzles | MAE | Interval coverage |
 | --- | ---: | ---: | ---: |
-| 0–999 | 182 | 583.8 | 62.1% |
-| 1000–1399 | 894 | 293.3 | 98.4% |
-| 1400–1799 | 1071 | 127.7 | 100.0% |
-| 1800–2199 | 606 | 404.6 | 91.3% |
-| 2200–4000 | 206 | 784.2 | 17.0% |
+| 0–999 | 182 | 505.7 | 67.6% |
+| 1000–1399 | 894 | 285.8 | 98.3% |
+| 1400–1799 | 1071 | 136.6 | 99.9% |
+| 1800–2199 | 606 | 386.4 | 90.8% |
+| 2200–4000 | 206 | 764.7 | 21.4% |
 
 ## Feature inspection
 
@@ -79,7 +79,7 @@ uv run puzzlepath audit --data data/puzzles.csv --run outputs/reproduction
 ```
 
 Data SHA-256: `c8a742ac65c2641abe755d2a0f63806c93686c9accd38100b0886815b6c83795`.
-Model SHA-256: `f580b1528cb8287b48b11725a9ece7c3c94d66586965dbaf654ed033cd64732e`.
+Model SHA-256: `282947948e3737b5563ef972d531868d713757da4c9c0aea201c6f22e6aa6a2d`.
 
 Timestamps and serialized model bytes may differ on a repeated run; compare
 splits, selected configuration, predictions, and metrics using the locked environment.

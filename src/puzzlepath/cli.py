@@ -11,6 +11,7 @@ from pathlib import Path
 import chess
 
 from puzzlepath.data import fetch_sample, load_puzzles, sha256
+from puzzlepath.evaluation import evaluate_external
 from puzzlepath.model import load_model, predict_position, train
 from puzzlepath.practice import export_practice
 from puzzlepath.splits import split_puzzles
@@ -73,6 +74,9 @@ def parser() -> argparse.ArgumentParser:
     fetch.add_argument("--seed", type=int, default=42)
     fetch.add_argument("--min-plays", type=int, default=1000)
     fetch.add_argument("--max-deviation", type=int, default=100)
+    fetch.add_argument(
+        "--skip", type=int, default=0, help="Skip this many source rows before sampling"
+    )
 
     fit = commands.add_parser(
         "train", help="Fit, validate, calibrate, and evaluate with disjoint groups"
@@ -110,6 +114,12 @@ def parser() -> argparse.ArgumentParser:
     )
     audit.add_argument("--data", type=Path, default=Path("data/puzzles.csv"))
     audit.add_argument("--run", type=Path, default=Path("artifacts/benchmark"))
+
+    evaluate = commands.add_parser("evaluate", help="Evaluate a frozen model on a separate CSV")
+    evaluate.add_argument("--data", type=Path, default=Path("data/confirmation.csv"))
+    evaluate.add_argument("--training-data", type=Path, default=Path("data/puzzles.csv"))
+    evaluate.add_argument("--run", type=Path, default=Path("artifacts/benchmark"))
+    evaluate.add_argument("--output", type=Path, default=Path("outputs/confirmation"))
     return root
 
 
@@ -126,6 +136,7 @@ def main(argv: list[str] | None = None) -> int:
                     seed=args.seed,
                     min_plays=args.min_plays,
                     max_deviation=args.max_deviation,
+                    skip=args.skip,
                 )
             case "train":
                 summary = train(args.data, args.output, args.seed, args.alpha)
@@ -155,6 +166,8 @@ def main(argv: list[str] | None = None) -> int:
                 }
             case "audit":
                 result = audit_run(args.data, args.run)
+            case "evaluate":
+                result = evaluate_external(args.data, args.training_data, args.run, args.output)
         print(json.dumps(result, indent=2))
         return 0
     except (ValueError, OSError, KeyError) as error:

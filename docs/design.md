@@ -26,7 +26,10 @@ committed snapshot instead.
 
 Only `chess.Board` enters `position_features`. Piece counts, material, mobility,
 available checks/captures, attacked pieces, pawn structure, and king-ring pressure
-are solver-relative. Color mirroring should produce the same features.
+are solver-relative. Version 2 adds five features using legal replies to available
+checks, including immediate mating moves. This is bounded tactical lookahead;
+it does not use a chess engine or the provided answer. Color mirroring should
+produce the same features.
 
 Rating, rating deviation, popularity, play count, source identity, opening labels,
 theme tags, and solution moves/length never enter the model. Filtering on plays

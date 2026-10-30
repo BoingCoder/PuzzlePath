@@ -5,7 +5,7 @@ from __future__ import annotations
 import chess
 import numpy as np
 
-FEATURE_VERSION = 1
+FEATURE_VERSION = 2
 PIECE_VALUES = {chess.PAWN: 1, chess.KNIGHT: 3, chess.BISHOP: 3, chess.ROOK: 5, chess.QUEEN: 9}
 MATERIAL_FEATURES = tuple(
     f"{side}_{chess.piece_name(piece)}s"
@@ -76,6 +76,16 @@ def position_features(board: chess.Board) -> dict[str, float]:
     result.update(_side_features(board, not board.turn, "them"))
     moves = list(board.legal_moves)
     captures = [move for move in moves if board.is_capture(move)]
+    checking_moves = [move for move in moves if board.gives_check(move)]
+    reply_counts = []
+    safe_checks = 0
+    for move in checking_moves:
+        board.push(move)
+        try:
+            reply_counts.append(board.legal_moves.count())
+            safe_checks += not board.is_attacked_by(board.turn, move.to_square)
+        finally:
+            board.pop()
     result.update(
         {
             "material_balance": result["us_material"] - result["them_material"],
@@ -83,7 +93,12 @@ def position_features(board: chess.Board) -> dict[str, float]:
             "in_check": float(board.is_check()),
             "legal_moves": float(len(moves)),
             "legal_captures": float(len(captures)),
-            "legal_checks": float(sum(board.gives_check(move) for move in moves)),
+            "legal_checks": float(len(checking_moves)),
+            "mate_in_one_moves": float(sum(count == 0 for count in reply_counts)),
+            "checks_with_one_reply": float(sum(count == 1 for count in reply_counts)),
+            "minimum_check_replies": float(min(reply_counts, default=0)),
+            "mean_check_replies": float(np.mean(reply_counts)) if reply_counts else 0.0,
+            "safe_checking_destinations": float(safe_checks),
             "legal_promotions": float(sum(move.promotion is not None for move in moves)),
             "capture_value_max": float(
                 max(
