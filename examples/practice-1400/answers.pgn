@@ -1,0 +1,77 @@
+[Event "PuzzlePath / 00X5w"]
+[Site "https://lichess.org/training/00X5w"]
+[Date "????.??.??"]
+[Round "?"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[FEN "r2q1r1k/1ppbb1pn/p1n4p/3QNp2/B3P3/2P4P/PP3PP1/R1B1RNK1 b - - 0 14"]
+[SetUp "1"]
+[PuzzleRating "1250"]
+
+14... Nxe5 15. Bxd7 Nxd7 *
+
+[Event "PuzzlePath / 0EuLk"]
+[Site "https://lichess.org/training/0EuLk"]
+[Date "????.??.??"]
+[Round "?"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[FEN "4r2k/1R2P2p/p1n3p1/4p1P1/5pB1/8/P4PP1/6K1 w - - 1 34"]
+[SetUp "1"]
+[PuzzleRating "1310"]
+
+34. Bd7 Rxe7 35. Bxc6 Rxb7 36. Bxb7 *
+
+[Event "PuzzlePath / 017zX"]
+[Site "https://lichess.org/training/017zX"]
+[Date "????.??.??"]
+[Round "?"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[FEN "6qk/1p4p1/B1n2rQp/3p4/8/2P2P2/P6P/6RK w - - 1 30"]
+[SetUp "1"]
+[PuzzleRating "1370"]
+
+30. Qxf6 gxf6 31. Rxg8+ Kxg8 32. Bxb7 *
+
+[Event "PuzzlePath / 05NVJ"]
+[Site "https://lichess.org/training/05NVJ"]
+[Date "????.??.??"]
+[Round "?"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[FEN "5kn1/1p3p1p/n1p3p1/p3NNQ1/P3P3/7P/1q3PPK/8 w - - 4 26"]
+[SetUp "1"]
+[PuzzleRating "1430"]
+
+26. Qd8# *
+
+[Event "PuzzlePath / 0DuxQ"]
+[Site "https://lichess.org/training/0DuxQ"]
+[Date "????.??.??"]
+[Round "?"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[FEN "1k4rr/1pp5/p3P3/3P4/7R/2P3p1/PP6/2K4Q b - - 0 32"]
+[SetUp "1"]
+[PuzzleRating "1490"]
+
+32... Rxh4 33. Qxh4 g2 34. Qd4 g1=Q+ *
+
+[Event "PuzzlePath / 07Dg7"]
+[Site "https://lichess.org/training/07Dg7"]
+[Date "????.??.??"]
+[Round "?"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[FEN "3r2k1/1b5p/4pPp1/p1p2p2/2Q2P2/P6R/1P1q2PP/6RK b - - 0 26"]
+[SetUp "1"]
+[PuzzleRating "1550"]
+
+26... Qxg2+ 27. Rxg2 Rd1+ 28. Qf1 Rxf1# *

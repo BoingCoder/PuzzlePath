@@ -1,0 +1,24 @@
+{
+  "source_url": "https://database.lichess.org/lichess_db_puzzle.csv.zst",
+  "source_documentation": "https://database.lichess.org/#puzzles",
+  "license": "CC0-1.0",
+  "retrieved_utc": "2026-10-30T03:03:53.005529+00:00",
+  "http_identity": {
+    "ETag": "\"6abf70a1-125007eb\"",
+    "Last-Modified": "Fri, 02 Oct 2026 08:51:45 GMT"
+  },
+  "sampling": "seeded reservoir over eligible rows in the scanned window; NOT full-export random",
+  "seed": 42,
+  "scan_limit": 50000,
+  "skip_rows": 250000,
+  "sample_size": 4000,
+  "min_plays": 1000,
+  "max_rating_deviation": 100,
+  "counts": {
+    "scanned": 50000,
+    "low_plays": 34865,
+    "eligible": 14454,
+    "high_deviation": 681
+  },
+  "csv_sha256": "572b2972064ea3766d55c11805a692770314459df536e7caf5eeab2320fa268c"
+}

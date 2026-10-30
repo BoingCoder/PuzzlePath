@@ -1,0 +1,36 @@
+{
+  "created_utc": "2026-10-30T03:05:02.113549+00:00",
+  "evaluation": "frozen model; no fitting, selection, or recalibration on this sample",
+  "scope": "another bounded window of the same Lichess export; NOT a temporal holdout",
+  "data_sha256": "572b2972064ea3766d55c11805a692770314459df536e7caf5eeab2320fa268c",
+  "training_data_sha256": "c8a742ac65c2641abe755d2a0f63806c93686c9accd38100b0886815b6c83795",
+  "frozen_model_sha256": "282947948e3737b5563ef972d531868d713757da4c9c0aea201c6f22e6aa6a2d",
+  "input_rows": 4000,
+  "retained_rows": 3999,
+  "excluded_overlapping_rows": 1,
+  "components": 3999,
+  "selected_model": "boosted_15",
+  "model": {
+    "mae": 296.82755513459415,
+    "rmse": 370.20583201362786,
+    "median_absolute_error": 254.41356194123568,
+    "r2": 0.10637450533354065,
+    "within_200": 0.4068517129282321,
+    "n": 3999
+  },
+  "median_baseline": {
+    "mae": 316.4226056514129,
+    "rmse": 392.8922620546192,
+    "median_absolute_error": 276.0,
+    "r2": -0.006505122112908435,
+    "within_200": 0.38159539884971244,
+    "n": 3999
+  },
+  "model_mae_bootstrap_95": [
+    289.93752460809594,
+    303.4445552496729
+  ],
+  "interval_radius": 614.0347264722225,
+  "row_interval_coverage": 0.9087271817954489,
+  "component_interval_coverage": 0.9087271817954489
+}

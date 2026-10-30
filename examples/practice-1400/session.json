@@ -1,0 +1,99 @@
+{
+  "target_puzzle_rating": 1400,
+  "rank_by": "observed",
+  "theme_filter": null,
+  "puzzles": [
+    {
+      "id": "00X5w",
+      "solver_fen": "r2q1r1k/1ppbb1pn/p1n4p/3QNp2/B3P3/2P4P/PP3PP1/R1B1RNK1 b - - 0 14",
+      "observed_rating": 1250,
+      "selection_score": 1250.0,
+      "themes": [
+        "advantage",
+        "middlegame",
+        "short"
+      ],
+      "solution_san": "14...Nxe5 15. Bxd7 Nxd7",
+      "url": "https://lichess.org/training/00X5w"
+    },
+    {
+      "id": "0EuLk",
+      "solver_fen": "4r2k/1R2P2p/p1n3p1/4p1P1/5pB1/8/P4PP1/6K1 w - - 1 34",
+      "observed_rating": 1310,
+      "selection_score": 1310.0,
+      "themes": [
+        "crushing",
+        "endgame",
+        "fork",
+        "long"
+      ],
+      "solution_san": "34. Bd7 Rxe7 35. Bxc6 Rxb7 36. Bxb7",
+      "url": "https://lichess.org/training/0EuLk"
+    },
+    {
+      "id": "017zX",
+      "solver_fen": "6qk/1p4p1/B1n2rQp/3p4/8/2P2P2/P6P/6RK w - - 1 30",
+      "observed_rating": 1370,
+      "selection_score": 1370.0,
+      "themes": [
+        "crushing",
+        "discoveredAttack",
+        "endgame",
+        "long",
+        "master"
+      ],
+      "solution_san": "30. Qxf6 gxf6 31. Rxg8+ Kxg8 32. Bxb7",
+      "url": "https://lichess.org/training/017zX"
+    },
+    {
+      "id": "05NVJ",
+      "solver_fen": "5kn1/1p3p1p/n1p3p1/p3NNQ1/P3P3/7P/1q3PPK/8 w - - 4 26",
+      "observed_rating": 1430,
+      "selection_score": 1430.0,
+      "themes": [
+        "endgame",
+        "mate",
+        "mateIn1",
+        "oneMove"
+      ],
+      "solution_san": "26. Qd8#",
+      "url": "https://lichess.org/training/05NVJ"
+    },
+    {
+      "id": "0DuxQ",
+      "solver_fen": "1k4rr/1pp5/p3P3/3P4/7R/2P3p1/PP6/2K4Q b - - 0 32",
+      "observed_rating": 1490,
+      "selection_score": 1490.0,
+      "themes": [
+        "advancedPawn",
+        "crushing",
+        "endgame",
+        "long",
+        "promotion",
+        "queenRookEndgame"
+      ],
+      "solution_san": "32...Rxh4 33. Qxh4 g2 34. Qd4 g1=Q+",
+      "url": "https://lichess.org/training/0DuxQ"
+    },
+    {
+      "id": "07Dg7",
+      "solver_fen": "3r2k1/1b5p/4pPp1/p1p2p2/2Q2P2/P6R/1P1q2PP/6RK b - - 0 26",
+      "observed_rating": 1550,
+      "selection_score": 1550.0,
+      "themes": [
+        "clearance",
+        "endgame",
+        "kingsideAttack",
+        "long",
+        "mate",
+        "mateIn3",
+        "pin",
+        "sacrifice"
+      ],
+      "solution_san": "26...Qxg2+ 27. Rxg2 Rd1+ 28. Qf1 Rxf1#",
+      "url": "https://lichess.org/training/07Dg7"
+    }
+  ],
+  "worksheet_sha256": "b8b21dfe6b4e2e5cd7a4560a8bda0bf1a51a51279859fbf484c7336268f8ab05",
+  "note": "No learner data or demonstrated educational outcome; known ratings preferred."
+}

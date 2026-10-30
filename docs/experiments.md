@@ -50,3 +50,22 @@ or recalibrating. Preserve its source manifest, predictions, and report.
 
 This checks another part of the same export, not future puzzles, a new platform,
 individual learners, or improved classroom outcomes.
+
+## 3. Frozen-model confirmation
+
+- Freeze commit: `1bd32f8`, preceding confirmation-data acquisition.
+- Model SHA-256:
+  `282947948e3737b5563ef972d531868d713757da4c9c0aea201c6f22e6aa6a2d`.
+- Confirmation sample acquired at `2026-10-30T03:03:53Z`; the HTTP export identity
+  matches the development snapshot.
+- Evaluation: `2026-10-30T03:05:02Z`.
+- Retained: 3,999 of 4,000 rows after one overlap exclusion.
+- Frozen-model MAE: 296.83; training-median baseline MAE: 316.42.
+- MAE component-bootstrap 95% interval: 289.94–303.44.
+- Observed interval coverage: 90.87%, with the unchanged radius of ±614.03.
+- Artifacts: [confirmation report](../artifacts/confirmation/report.md).
+
+The gain transfers modestly to this other source window. The model remains a
+coarse baseline with substantial error. No further features or hyperparameters
+were selected against the confirmation result. A future iteration needs a fresh
+evaluation sample if it is to make another untouched-holdout claim.
